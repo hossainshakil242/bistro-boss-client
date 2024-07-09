@@ -1,6 +1,19 @@
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
+  const navItems = <>
+    <li>
+      <Link to='/'>Home</Link>
+    </li>
+    <li>
+      <Link to='/menu'>Menu</Link>
+    </li>
+    <li>
+      <Link to='/order/salad'>Order Food</Link>
+    </li>
+  </>
+
+
   return (
     <>
       <div className="navbar max-w-screen-xl fixed z-10 opacity-70 bg-neutral text-white">
@@ -26,11 +39,9 @@ const NavBar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
+              {navItems}
+
               <li>
-                <Link to="/menu">Menu</Link>
-              </li>
-              <li>
-                <Link to="/">Home</Link>
                 <ul className="p-2">
                   <li>
                     <a>Submenu 1</a>
@@ -40,18 +51,13 @@ const NavBar = () => {
                   </li>
                 </ul>
               </li>
-              <li>
-                <Link to="/order">Order</Link>
-              </li>
             </ul>
           </div>
           <a className="btn btn-ghost text-xl">Bistro</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <li>
-              <Link to="/menu">Menu</Link>
-            </li>
+            {navItems}
             <li>
               <details>
                 <summary>Parent</summary>
@@ -65,16 +71,10 @@ const NavBar = () => {
                 </ul>
               </details>
             </li>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/order">Order Food</Link>
-            </li>
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          <a className="btn">LogIn</a>
         </div>
       </div>
     </>
