@@ -30,6 +30,9 @@ const NavBar = () => {
           </li>
         </>
     }
+    <li>
+      <Link to='/secrate'>Secrate</Link>
+    </li>
   </>
 
 

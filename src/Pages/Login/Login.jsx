@@ -1,12 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../providers/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Swal from 'sweetalert2';
 
 const Login = () => {
     const [disable, setDisable] = useState(true);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
     const { signIn } = useContext(AuthContext);
 
@@ -31,8 +34,10 @@ const Login = () => {
                     title: "Login Successfully",
                     showConfirmButton: false,
                     timer: 1500
-                  });
+                });
+                navigate(from, { replace: true });
             })
+        // .catch(error=> console.log(error));
     }
     const handleValidateCaptcha = (e) => {
         const user_captcha_value = e.target.value;
@@ -42,7 +47,7 @@ const Login = () => {
             Swal.fire({
                 icon: "error",
                 title: "captcha wrong"
-              });
+            });
         }
 
     }
