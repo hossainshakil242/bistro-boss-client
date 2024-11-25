@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -18,8 +21,8 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        navigate('/');
-        
+        navigate(from, { replace: true });
+
         Swal.fire({
           title: "Login successfull",
           showClass: {
@@ -27,17 +30,16 @@ const Login = () => {
               animate__animated
               animate__fadeInUp
               animate__faster
-            `
+            `,
           },
           hideClass: {
             popup: `
               animate__animated
               animate__fadeOutDown
               animate__faster
-            `
-          }
+            `,
+          },
         });
-
       })
       .then((err) => {
         const errMessage = err.message;

@@ -30,6 +30,9 @@ const NavBar = () => {
         <NavLink to={"/menu"}>Menu</NavLink>
       </li>
       <li>
+        <NavLink to={"/secrate"}>secrate</NavLink>
+      </li>
+      <li>
         <NavLink to={"/order/popular"}>Order</NavLink>
       </li>
       {user ? (
