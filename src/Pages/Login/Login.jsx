@@ -1,15 +1,55 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+import { Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import Swal from "sweetalert2";
 
 const Login = () => {
-    const handleLogin = (event) =>{
-        event.preventDefault();
-        const form = event.target;
-        const email = form.email.value;
-        const password = form.password.value;
-        console.log(email,password);
-    }
+  const { signIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        navigate('/');
+        
+        Swal.fire({
+          title: "Login successfull",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `
+          }
+        });
+
+      })
+      .then((err) => {
+        const errMessage = err.message;
+        console.log(errMessage);
+      });
+  };
   return (
     <div>
+      <Helmet>
+        <title>Bistro Boss || login</title>
+      </Helmet>
+
       <div className="hero bg-base-200 min-h-screen">
         <div className="hero-content flex-col md:flex-row">
           <div className="text-center lg:text-left">
@@ -59,6 +99,11 @@ const Login = () => {
                 />
               </div>
             </form>
+            <p>
+              <small>
+                New Here? <Link to={"/signup"}>Create an account</Link>
+              </small>
+            </p>
           </div>
         </div>
       </div>

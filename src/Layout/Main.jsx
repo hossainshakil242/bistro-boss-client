@@ -6,7 +6,7 @@ import NavBar from "../Pages/Shared/NavBar/NavBar";
 const Main = () => {
   const location = useLocation();
 
-  const isLonin = location.pathname.includes("login");
+  const isLonin = location.pathname.includes("login") || location.pathname.includes('signup');
   console.log(isLonin);
 
   return (

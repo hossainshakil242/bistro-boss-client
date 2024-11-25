@@ -1,15 +1,54 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const NavBar = () => {
-    const navOptions = <>
-    <li><NavLink to={'/'}>Home</NavLink></li>
-    <li><NavLink to={'/menu'}>Menu</NavLink></li>
-    <li><NavLink to={'/order/popular'}>Order</NavLink></li>
-    <li><NavLink to={'/login'}>Login</NavLink></li>
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "Logout success",
+          title: "Your work has been saved",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .then((error) => {
+        console.log(error);
+      });
+  };
+
+  const navOptions = (
+    <>
+      <li>
+        <NavLink to={"/"}>Home</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/menu"}>Menu</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/order/popular"}>Order</NavLink>
+      </li>
+      {user ? (
+        <>
+          <li onClick={handleLogOut}>
+            <NavLink to={"/login"}>Logout</NavLink>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <NavLink to={"/login"}>Login</NavLink>
+          </li>
+        </>
+      )}
     </>
+  );
   return (
-    <div> 
+    <div>
       <div className="max-w-screen-xl mx-auto navbar fixed z-10 bg-opacity-30 text-white bg-black">
         <div className="navbar-start">
           <div className="dropdown">
@@ -33,7 +72,7 @@ const NavBar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
-                {navOptions}
+              {navOptions}
               {/* <li>
                 <a>Item 1</a>
               </li>
@@ -57,7 +96,7 @@ const NavBar = () => {
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-          {navOptions}
+            {navOptions}
             {/* <li>
               <a>Item 1</a>
             </li>
