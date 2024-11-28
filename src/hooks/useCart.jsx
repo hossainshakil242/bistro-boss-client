@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 const useCart = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: carts = [] } = useQuery({
+  const { data: cart = [] } = useQuery({
     queryKey: ["cart"],
     queryFn: async () => {
       const res = await axiosSecure.get("/carts");
