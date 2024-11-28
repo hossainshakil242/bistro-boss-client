@@ -1,24 +1,44 @@
 import React, { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
   const {
     register,
     handleSubmit,
+    reset,
     watch,
     formState: { errors },
   } = useForm();
-  const {createUser} = useContext(AuthContext);
+
+  const {createUser,updateUserProfile} = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     console.log(data);
     createUser(data.email,data.password)
-    .thenI(result => {
+    .then(result => {
         const loggedUser = result.user;
         console.log(loggedUser);
+        updateUserProfile(data.name,data.photoUrl)
+        .then(()=>{
+          console.log('user profile updated.');
+          reset();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Account create successfull",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          navigate('/');
+        })
+        .then(error=>{
+          console.log(error);
+        })
     })
   };
   //   console.log(watch('name'));
@@ -56,6 +76,23 @@ const SignUp = () => {
               {errors.name && (
                 <span className="text-red-600">
                   <small>name is required</small>
+                </span>
+              )}
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Photo Url</span>
+              </label>
+              <input
+                {...register("photoUrl", { required: true })}
+                type="url"
+                placeholder="photo url"
+                className="input input-bordered"
+                required
+              />
+              {errors.photoUrl && (
+                <span className="text-red-600">
+                  <small>photo Url is required</small>
                 </span>
               )}
             </div>
