@@ -6,9 +6,8 @@ import useCart from "../../../hooks/useCart";
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
-  const [carts] = useCart();
-  console.log(carts.length);
-
+  const [cart] = useCart();
+  console.log(cart);
 
   const handleLogOut = () => {
     logOut()
@@ -43,7 +42,7 @@ const NavBar = () => {
       <li>
         <Link to={"/"}>
           <FaCartShopping className="text-lg"></FaCartShopping>
-          <div className="-ml-2 text-orange-500 font-medium">+99</div>
+          <div className="-ml-2 text-orange-500 font-medium text-md">{cart.length}</div>
         </Link>
       </li>
       <span>{user?.displayName}</span>
@@ -64,10 +63,10 @@ const NavBar = () => {
   );
   return (
     <div>
-      <div className="max-w-screen-xl mx-auto navbar fixed z-10 bg-opacity-30 text-white bg-black">
+      <div className="max-w-screen-xl mx-auto navbar fixed z-10 bg-opacity-30 md:text-white sm:text-black bg-black">
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden text-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -107,7 +106,7 @@ const NavBar = () => {
               </li> */}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">Bistro Boss</a>
+          <a className="btn btn-ghost text-white text-xl">Bistro Boss</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
