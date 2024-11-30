@@ -1,4 +1,4 @@
-import { FaAd, FaBook, FaList, FaMagic, FaShoppingCart, FaUsers, FaUtensils } from "react-icons/fa";
+import { FaAd, FaBook, FaEnvelope, FaList, FaMagic, FaShoppingCart, FaUsers, FaUtensils, FaVoicemail } from "react-icons/fa";
 import { FaCalendar } from "react-icons/fa6";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../hooks/useCart";
@@ -94,6 +94,12 @@ const Dashboard = () => {
             <NavLink to={"/menu"}>
               <FaMagic className="text-lg"></FaMagic>
               Menu
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/menu"}>
+              <FaEnvelope className="text-lg"></FaEnvelope>
+              Contact
             </NavLink>
           </li>
         </ul>

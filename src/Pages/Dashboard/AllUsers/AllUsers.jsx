@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { FaTrashAlt, FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { GrUserAdmin } from "react-icons/gr";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -12,6 +13,23 @@ const AllUsers = () => {
       return res.data;
     },
   });
+
+  const handleMakeAdmin = (user) => {
+    console.log(user._id);
+    axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
+      console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `${user.name} is an Admin Now!`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+  };
 
   const handleDeleteUser = (id) => {
     Swal.fire({
@@ -26,8 +44,8 @@ const AllUsers = () => {
       if (result.isConfirmed) {
         //delete users
         axiosSecure.delete(`/users/${id}`).then((res) => {
-            console.log(res);
-          if (res.data.deletedCount>0) {
+          console.log(res);
+          if (res.data.deletedCount > 0) {
             refetch();
 
             Swal.fire({
@@ -66,9 +84,17 @@ const AllUsers = () => {
                 <th>{user.name}</th>
                 <td>{user.email}</td>
                 <td>
-                  <button className="bg-orange-400 hover:bg-orange-500 text-white btn btn-lg">
-                    <FaUsers></FaUsers>
-                  </button>
+                  {user.role === "admin" ? (
+                    // "Admin"
+                    <GrUserAdmin></GrUserAdmin>
+                  ) : (
+                    <button
+                      onClick={() => handleMakeAdmin(user)}
+                      className="bg-orange-400 hover:bg-orange-500 text-white btn btn-lg"
+                    >
+                      <FaUsers></FaUsers>
+                    </button>
+                  )}
                 </td>
                 <td>
                   <button
