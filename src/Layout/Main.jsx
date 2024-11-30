@@ -7,7 +7,6 @@ const Main = () => {
   const location = useLocation();
 
   const isLonin = location.pathname.includes("login") || location.pathname.includes('signup');
-  console.log(isLonin);
 
   return (
     <div>
