@@ -40,7 +40,7 @@ const NavBar = () => {
         <NavLink to={"/order/popular"}>Order</NavLink>
       </li>
       <li>
-        <Link to={"/"}>
+        <Link to={"/dashboard"}>
           <FaCartShopping className="text-lg"></FaCartShopping>
           <div className="-ml-2 text-orange-500 font-medium text-md">{cart.length}</div>
         </Link>
