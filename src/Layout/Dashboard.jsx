@@ -1,45 +1,86 @@
-import { FaAd, FaList, FaMagic, FaShoppingCart } from "react-icons/fa";
+import { FaAd, FaBook, FaList, FaMagic, FaShoppingCart, FaUsers, FaUtensils } from "react-icons/fa";
 import { FaCalendar } from "react-icons/fa6";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../hooks/useCart";
 
 const Dashboard = () => {
   const [cart] = useCart();
+  //ToDo: get is admin value from the database
+  const isAdmin = true;
   return (
     <div className="flex">
       {/* dashboard side bar */}
       <div className="w-64 min-h-screen bg-orange-600">
         <ul className="menu">
-          <li>
-            <NavLink to={"/dashboard/userHome"}>
-              <FaShoppingCart className="text-lg"></FaShoppingCart>
-              User Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={"/dashboard/reservation"}>
-              <FaCalendar className="text-md"></FaCalendar>
-              Reservation
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={"/dashboard/cart"}>
-              <FaShoppingCart className="text-lg"></FaShoppingCart>
-              My Cart ({cart.length})
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={"/dashboard/review"}>
-              <FaAd className="text-lg"></FaAd>
-              Add Review
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={"/dashboard/bookings"}>
-              <FaList className="text-lg"></FaList>
-              My Bookings
-            </NavLink>
-          </li>
+          {isAdmin ? (
+            <>
+            {/* This is Admin Section */}
+              <li>
+                <NavLink to={"/dashboard/adminHome"}>
+                  <FaShoppingCart className="text-lg"></FaShoppingCart>
+                  Admin Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/dashboard/reservation"}>
+                  <FaUtensils className="text-md"></FaUtensils>
+                  Add Items
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/dashboard/manageItems"}>
+                  <FaList className="text-lg"></FaList>
+                  Manage Items
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/dashboard/bookings"}>
+                  <FaBook className="text-lg"></FaBook>
+                  Manage Bookings
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/dashboard/bookings"}>
+                  <FaUsers className="text-lg"></FaUsers>
+                  All Users
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            <>
+            {/* There are user Section */}
+              <li>
+                <NavLink to={"/dashboard/userHome"}>
+                  <FaShoppingCart className="text-lg"></FaShoppingCart>
+                  User Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/dashboard/reservation"}>
+                  <FaCalendar className="text-md"></FaCalendar>
+                  Reservation
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/dashboard/cart"}>
+                  <FaShoppingCart className="text-lg"></FaShoppingCart>
+                  My Cart ({cart.length})
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/dashboard/review"}>
+                  <FaAd className="text-lg"></FaAd>
+                  Add Review
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/dashboard/bookings"}>
+                  <FaList className="text-lg"></FaList>
+                  My Bookings
+                </NavLink>
+              </li>
+            </>
+          )}
 
           <div className="divider"></div>
 
@@ -55,7 +96,6 @@ const Dashboard = () => {
               Menu
             </NavLink>
           </li>
-
         </ul>
       </div>
       {/* dashboard content */}
