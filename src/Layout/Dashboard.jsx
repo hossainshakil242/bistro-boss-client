@@ -22,7 +22,7 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to={"/dashboard/reservation"}>
+                <NavLink to={"/dashboard/addItems"}>
                   <FaUtensils className="text-md"></FaUtensils>
                   Add Items
                 </NavLink>
@@ -40,7 +40,7 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to={"/dashboard/bookings"}>
+                <NavLink to={"/dashboard/users"}>
                   <FaUsers className="text-lg"></FaUsers>
                   All Users
                 </NavLink>
