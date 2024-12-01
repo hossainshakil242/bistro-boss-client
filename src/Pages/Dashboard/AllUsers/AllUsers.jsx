@@ -88,7 +88,7 @@ const AllUsers = () => {
                 <th>{user.name}</th>
                 <td>{user.email}</td>
                 <td>
-                  {user.role === "admin" ? (
+                  {user.role === 'admin' ? (
                     // "Admin"
                     <GrUserAdmin></GrUserAdmin>
                   ) : (
