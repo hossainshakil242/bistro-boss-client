@@ -1,7 +1,5 @@
-import React, { useContext } from "react";
 import { FaGoogle } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
-import { AuthContext } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 
@@ -20,7 +18,7 @@ const SocialLogin = () => {
             }
             axiosPublic.post('/users',userInfo)
             .then(res=>{
-                console.log(res.data);
+                console.log(res);
                 navigate('/');
             })
         })
