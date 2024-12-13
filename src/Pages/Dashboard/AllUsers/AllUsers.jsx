@@ -3,6 +3,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { FaTrashAlt, FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { GrUserAdmin } from "react-icons/gr";
+import { useParams } from "react-router-dom";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
